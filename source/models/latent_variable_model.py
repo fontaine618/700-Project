@@ -1,3 +1,5 @@
+from abc import ABC
+
 import torch
 import torch.nn as nn
 
@@ -7,7 +9,7 @@ def _nearest_orthogonal(Z):
     return torch.mm(u, v.t())
 
 
-class OffDefTeamConfLVM(nn.Module):
+class OffDefTeamConfLVM(nn.Module, ABC):
 
     def __init__(self, n_team, n_conf, dim, model):
         super(OffDefTeamConfLVM, self).__init__()

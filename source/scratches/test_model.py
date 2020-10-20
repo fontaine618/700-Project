@@ -19,11 +19,11 @@ DEVICE = 'cpu'
 space_model = Distance()
 # space_model = InnerProduct()
 
-model = OffDefTeamConfLVM(data.n_teams, data.n_conf, 2, ScoreModel(space_model)).to(DEVICE)
+model = OffDefTeamConfLVM(data.n_teams, data.n_conf, 10, ScoreModel(space_model)).to(DEVICE)
 model.train()
 mse = nn.MSELoss(reduction="sum")
 
-optimizer = torch.optim.SGD(model.parameters(), lr=0.1, momentum=0.5)
+optimizer = torch.optim.SGD(model.parameters(), lr=0.01, momentum=0.5)
 
 
 for i in range(100):

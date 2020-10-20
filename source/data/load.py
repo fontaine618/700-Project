@@ -17,9 +17,13 @@ class MatchDataset(Dataset):
         results = pd.read_csv(filepath_or_buffer=path + file)
         # subset to season
         season_results = results[results["Season"] == year]
+        keep = season_results["NumOT"] == 0
+        season_results = season_results.loc[keep]
         self.n_matches = len(season_results)
         # conferences
         results = pd.read_csv(filepath_or_buffer=path + "TeamConferences.csv")
+        self.conference_names = pd.read_csv(filepath_or_buffer=path + "Conferences.csv")
+        self.conference_names.set_index("ConfAbbrev", inplace=True)
         # subset to season
         conferences = results[results["Season"] == year].drop(columns="Season")
         conferences.set_index("TeamID", inplace=True)
